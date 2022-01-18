@@ -13,6 +13,8 @@ app.get('/', (request, response) => {
 
 app.post('/users', router);
 app.post('/login', router);
+// app.post('/recipes', router);
+
 app.use(errorHandle);
 // app.use((err, _request, response, _next) => {
 //   if (err.status) return response.status(err.status).json({ message: err.message });
