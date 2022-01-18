@@ -44,7 +44,7 @@ const validatePassword = (password) => {
   return password;
 };
 
-const validateLogin = async (email, password) => {
+const validateLogin = async ({ email, password }) => {
   const registredEmail = await getEmail(email);
 
   if (!registredEmail || registredEmail.password !== password) throw msgUnauthorizedIncorrect;
@@ -53,8 +53,11 @@ const validateLogin = async (email, password) => {
 };
 
 const validateNull = async (email, password) => {
-  const { error } = emailSchema.validate(email) && schema.validate(password);
-
+  const nullSchema = Joi.object({ 
+    email: emailSchema,
+    password: schema,
+  });
+  const { error } = nullSchema.validate({ email, password });
   if (error) throw msgUnauthorizedNull;
 
   return { email, password };

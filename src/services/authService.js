@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const API_SECRET = 'senhaImpossivel123';
+const API_SECRET = '  ';
 
 const JWT_CONFIG = {
   expiresIn: 3600,
