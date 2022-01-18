@@ -1,10 +1,19 @@
-const errors = { 
-  errorEntries: 'Invalid entries. Try again.',  
-  errorSameEmail: 'Email already registered', 
-  errorNullInput: 'All fields must be filled',  
-  errorIncorrectInput: 'Incorrect username or password',  
-};
+const { errors } = require('./errors');
+
+const codeBadRequest = 400;
+const codeConflict = 409;
+const codeUnauthorized = 401;
+
+// referência: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+
+const msgBadRequest = { status: codeBadRequest, message: errors.errorEntries };
+const msgConflict = { status: codeConflict, message: errors.errorSameEmail };
+const msgUnauthorizedNull = { status: codeUnauthorized, message: errors.errorNullInput };
+const msgUnauthorizedIncorrect = { status: codeUnauthorized, message: errors.errorIncorrectInput };
 
 module.exports = {
-  errors, 
+  msgBadRequest,
+  msgConflict,
+  msgUnauthorizedNull, 
+  msgUnauthorizedIncorrect,
 };

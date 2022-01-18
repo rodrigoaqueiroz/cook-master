@@ -13,8 +13,8 @@ const createUser = async (name, email, password, role) => {
   const verifyEmail = await validateEmail(email);
   const verifyPassword = await validatePassword(password);
   const userId = await create(verifyName, verifyEmail, verifyPassword, role);
-
-  return { id: userId, name, email };
+  const createdObj = { user: { ...userId, role: 'user' } };
+  return createdObj;  
 };
 
 module.exports = {
