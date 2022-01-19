@@ -74,7 +74,7 @@ const validateToken = async (req, res, next) => {
     
     next();
   } catch (err) {
-    return { status: 401, message: msgBadJWT };
+    return next({ status: 400, message: msgBadJWT.message });
   }
 };
 

@@ -10,7 +10,7 @@ const msgBadRequest = { status: codeBadRequest, message: errors.errorEntries };
 const msgConflict = { status: codeConflict, message: errors.errorSameEmail };
 const msgUnauthorizedNull = { status: codeUnauthorized, message: errors.errorNullInput };
 const msgUnauthorizedIncorrect = { status: codeUnauthorized, message: errors.errorIncorrectInput };
-const msgBadJWT = { status: codeUnauthorized, message: errors.errorIncorrectJWT };
+const msgBadJWT = { status: codeUnauthorized, message: errors.IncorrectJWT };
 
 module.exports = {
   msgBadRequest,
@@ -19,3 +19,5 @@ module.exports = {
   msgUnauthorizedIncorrect,
   msgBadJWT,
 };
+
+console.log(msgBadJWT);

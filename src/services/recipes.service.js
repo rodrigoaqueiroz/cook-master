@@ -5,7 +5,7 @@ const createRecipes = async (name, ingredients, preparation, user) => {
   const verifyNull = await validateRecipe(name, ingredients, preparation, user);
   const recipeId = await create(verifyNull, user);
   const createdRecipe = { recipe: { ...recipeId } };
-  return createdRecipe;
+  return { status: 201, message: createdRecipe };
 };
 
 module.exports = {
