@@ -54,7 +54,7 @@ const validateNull = async (email, password) => {
     password: schema,
   });
   const { error } = nullSchema.validate({ email, password });
-  if (error) throw msgUnauthorizedNull;
+  if (error) return msgUnauthorizedNull;
 
   return { email, password };
 };
@@ -74,7 +74,7 @@ const validateToken = async (req, res, next) => {
     
     next();
   } catch (err) {
-    return next({ status: 400, message: msgBadJWT.message });
+    return next({ status: 401, message: msgBadJWT.message });
   }
 };
 
@@ -86,8 +86,10 @@ const validateRecipe = (name, ingredients, preparation) => {
   });
 
   const { error } = schemaRecipes.validate({ name, ingredients, preparation });
+  
   if (error) {
     console.log(`ERRO NA VALIDAÇÃO: ${error.message}`);
+    console.log(`ERRO NA VALIDAÇÃO COOOODE: ${msgBadRequest.status}`);
     throw msgBadRequest;
   }
   return { name, ingredients, preparation };
