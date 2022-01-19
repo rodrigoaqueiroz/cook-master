@@ -64,11 +64,14 @@ const validateToken = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    const user = await getEmail(decoded.email);
+    console.log(`SEGUE AQUI O DECODED: ${decoded.data.email}`);
+    const user = await getEmail(decoded.data.email);
+    // console.log(`SEGUE AQUI O USER: ${Object.keys(user)}`);
 
     if (!user) res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
 
     req.user = user;
+    
     next();
   } catch (err) {
     return { status: 401, message: msgBadJWT };
@@ -76,7 +79,7 @@ const validateToken = async (req, res, next) => {
 };
 
 const validateRecipe = (name, ingredients, preparation) => {
-  const schemaRecipes = Joi.object({ 
+  const schemaRecipes = Joi.object({  
     name: recipesSchema,
     ingredients: recipesSchema,
     preparation: recipesSchema,

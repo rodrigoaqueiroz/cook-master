@@ -1,6 +1,7 @@
 const connect = require('./connection');
 
-const create = async (name, ingredients, preparation, user) => {
+const create = async (obj, user) => {
+  const { name, ingredients, preparation } = obj;
   const conn = await connect();
   const { _id: userId } = user;
   const newRecipe = conn.collection('recipes').insertOne({
@@ -9,7 +10,7 @@ const create = async (name, ingredients, preparation, user) => {
     _id: res.insertedId, name, ingredients, preparation, userId,
   }));
 
-  return newRecipe;
+  return newRecipe; 
 };
 
 module.exports = {

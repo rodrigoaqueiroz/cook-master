@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = 'senhaImpossivel123';
 
 const JWT_CONFIG = {
-  expiresIn: 3600,
+  expiresIn: '7d',
   algorithm: 'HS256',
 };
 
