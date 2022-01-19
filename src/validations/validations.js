@@ -54,7 +54,7 @@ const validateNull = async (email, password) => {
     password: schema,
   });
   const { error } = nullSchema.validate({ email, password });
-  if (error) return msgUnauthorizedNull;
+  if (error) throw msgUnauthorizedNull;
 
   return { email, password };
 };
