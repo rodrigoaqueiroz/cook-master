@@ -13,6 +13,13 @@ const create = async (obj, user) => {
   return newRecipe; 
 };
 
+const getRecipes = async () => {
+  const conn = await connect();
+  const getRecipesRecord = conn.collection('recipes').find().toArray();
+  return getRecipesRecord;
+};
+
 module.exports = {
   create,
+  getRecipes,
 };

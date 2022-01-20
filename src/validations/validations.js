@@ -61,19 +61,20 @@ const validateNull = async (email, password) => {
 
 const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;
-
+  if (!token) res.status(401).json({ error: 'Token não encontrado.' });
+  
   try {
     const decoded = jwt.verify(token, secret);
-    console.log(`SEGUE AQUI O DECODED: ${decoded.data.email}`);
+    // console.log(`SEGUE AQUI O DECODED: ${decoded.data.email}`);
     const user = await getEmail(decoded.data.email);
-    // console.log(`SEGUE AQUI O USER: ${Object.keys(user)}`);
-
-    if (!user) res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
-
+    console.log(user);
+    
+    if (!user) res.status(401).json({ error: 'Erro ao procurar usuário do token.' });
     req.user = user;
     
     next();
   } catch (err) {
+    console.log(`TOKEN VALIDATION ERROR: ${err.message}`);
     return next({ status: 401, message: msgBadJWT.message });
   }
 };
@@ -88,8 +89,6 @@ const validateRecipe = (name, ingredients, preparation) => {
   const { error } = schemaRecipes.validate({ name, ingredients, preparation });
   
   if (error) {
-    console.log(`ERRO NA VALIDAÇÃO: ${error.message}`);
-    console.log(`ERRO NA VALIDAÇÃO COOOODE: ${msgBadRequest.status}`);
     throw msgBadRequest;
   }
   return { name, ingredients, preparation };

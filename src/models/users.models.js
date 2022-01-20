@@ -12,7 +12,7 @@ const create = async (name, email, password, role) => {
 const getEmail = async (email) => {
   const conn = await connect();
   const getEmailRecord = await conn.collection('users').findOne({ email });
-  if (!getEmailRecord) return null;
+  // if (!getEmailRecord) return null;
   return getEmailRecord;
 };
 

@@ -19,5 +19,3 @@ module.exports = {
   msgUnauthorizedIncorrect,
   msgBadJWT,
 };
-
-console.log(msgBadJWT);
