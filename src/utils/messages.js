@@ -3,6 +3,7 @@ const { errors } = require('./errors');
 const codeBadRequest = 400;
 const codeConflict = 409;
 const codeUnauthorized = 401;
+const codeNotFound = 404;
 
 // referência: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
 
@@ -11,6 +12,7 @@ const msgConflict = { status: codeConflict, message: errors.errorSameEmail };
 const msgUnauthorizedNull = { status: codeUnauthorized, message: errors.errorNullInput };
 const msgUnauthorizedIncorrect = { status: codeUnauthorized, message: errors.errorIncorrectInput };
 const msgBadJWT = { status: codeUnauthorized, message: errors.IncorrectJWT };
+const msgNotFoundRecipe = { status: codeNotFound, message: errors.notFoundRecipe };
 
 module.exports = {
   msgBadRequest,
@@ -18,4 +20,5 @@ module.exports = {
   msgUnauthorizedNull, 
   msgUnauthorizedIncorrect,
   msgBadJWT,
+  msgNotFoundRecipe,
 };

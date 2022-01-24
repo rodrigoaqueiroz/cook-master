@@ -4,6 +4,7 @@ const errors = {
   errorNullInput: 'All fields must be filled',  
   errorIncorrectInput: 'Incorrect username or password',  
   IncorrectJWT: 'jwt malformed',
+  notFoundRecipe: 'recipe not found',
 };
 
 module.exports = {

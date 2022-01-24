@@ -15,6 +15,7 @@ app.post('/users', router);
 app.post('/login', router);
 app.post('/recipes', router);
 app.get('/recipes', router);
+app.get('/recipes/:id', router);
 
 app.use(errorHandle);
 // app.use((err, _request, response, _next) => {
