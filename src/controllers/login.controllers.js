@@ -1,7 +1,7 @@
 const { signIn } = require('../services/login.service');
+const { codeOK } = require('../utils/dictionary');
 
 const toSignIn = async (req, res, next) => {
-  const codeOK = 200;
   try {
     const { email, password } = req.body;
     const newLogin = await signIn(email, password);

@@ -1,9 +1,5 @@
 const { errors } = require('./errors');
-
-const codeBadRequest = 400;
-const codeConflict = 409;
-const codeUnauthorized = 401;
-const codeNotFound = 404;
+const { codeBadRequest, codeConflict, codeUnauthorized, codeNotFound } = require('./dictionary');
 
 // referência: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
 
@@ -13,6 +9,7 @@ const msgUnauthorizedNull = { status: codeUnauthorized, message: errors.errorNul
 const msgUnauthorizedIncorrect = { status: codeUnauthorized, message: errors.errorIncorrectInput };
 const msgBadJWT = { status: codeUnauthorized, message: errors.IncorrectJWT };
 const msgNotFoundRecipe = { status: codeNotFound, message: errors.notFoundRecipe };
+const msgMissingToken = { status: codeUnauthorized, message: errors.missingAuthToken };
 
 module.exports = {
   msgBadRequest,
@@ -21,4 +18,5 @@ module.exports = {
   msgUnauthorizedIncorrect,
   msgBadJWT,
   msgNotFoundRecipe,
+  msgMissingToken,
 };

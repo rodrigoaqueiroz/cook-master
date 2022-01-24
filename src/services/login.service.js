@@ -1,7 +1,6 @@
 const { validateLogin, validateNull } = require('../validations/validations');
 const { genToken } = require('./authService');
-
-const codeOK = 200;
+const { codeOK } = require('../utils/dictionary');
 
 const signIn = async (email, password) => {
   const verifyNull = await validateNull(email, password);

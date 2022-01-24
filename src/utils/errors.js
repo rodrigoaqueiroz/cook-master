@@ -5,6 +5,7 @@ const errors = {
   errorIncorrectInput: 'Incorrect username or password',  
   IncorrectJWT: 'jwt malformed',
   notFoundRecipe: 'recipe not found',
+  missingAuthToken: 'missing auth token',
 };
 
 module.exports = {

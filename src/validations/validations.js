@@ -2,7 +2,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { 
   msgBadRequest, msgConflict, 
-  msgUnauthorizedNull, msgUnauthorizedIncorrect, msgBadJWT,
+  msgUnauthorizedNull, msgUnauthorizedIncorrect, msgMissingToken,
   } = require('../utils/messages');
 const { getEmail } = require('../models/users.models');
 const { secret } = require('../services/authService');
@@ -61,9 +61,9 @@ const validateNull = async (email, password) => {
 
 const validateToken = async (req, res, next) => {
   const token = req.headers.authorization;
-  if (!token) res.status(401).json({ error: 'Token não encontrado.' });
   
   try {
+    if (!token) throw msgMissingToken;
     const decoded = jwt.verify(token, secret);
     // console.log(`SEGUE AQUI O DECODED: ${decoded.data.email}`);
     const user = await getEmail(decoded.data.email);
@@ -75,7 +75,7 @@ const validateToken = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(`TOKEN VALIDATION ERROR: ${err.message}`);
-    return next({ status: 401, message: msgBadJWT.message });
+    return next({ status: 401, message: err.message });
   }
 };
 

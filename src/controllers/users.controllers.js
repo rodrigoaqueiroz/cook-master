@@ -1,6 +1,6 @@
 const { createUser } = require('../services/users.services');
+const { codeCreated } = require('../utils/dictionary');
 
-const codeCreated = 201;
 const userCreate = async (req, res, next) => {
   try {
     const { name, email, password, role = 'user' } = req.body;

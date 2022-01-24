@@ -10,7 +10,6 @@ const create = async (obj, user) => {
   }).then((res) => ({ 
     _id: res.insertedId, name, ingredients, preparation, userId,
   }));
-
   return newRecipe; 
 };
 
@@ -22,15 +21,28 @@ const getRecipes = async () => {
 
 const getById = async (id) => {
   if (!ObjectId.isValid(id)) return null;
-
   const conn = await connect();
   const getRecipe = await conn.collection('recipes').findOne({ _id: ObjectId(id) });
-
   return getRecipe;
+};
+
+const editById = async (id, obj, user) => {
+  if (!ObjectId.isValid(id)) return null;
+  const { name, ingredients, preparation } = obj;
+  const { _id: userId } = user;
+  const conn = await connect();
+  const findAndUpdate = await conn.collection('recipes').findOneAndUpdate( 
+    { _id: ObjectId(id) },
+    { $set: { name, ingredients, preparation } },
+    ).then(() => ({ 
+      _id: id, name, ingredients, preparation, userId,
+    }));
+    return findAndUpdate;
 };
 
 module.exports = {
   create,
   getRecipes,
   getById,
+  editById,
 };
