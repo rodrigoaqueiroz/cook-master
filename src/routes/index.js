@@ -1,9 +1,9 @@
 const express = require('express');
-const { userCreate } = require('../controllers/users.controllers');
+const { userCreate, adminCreate } = require('../controllers/users.controllers');
 const { toSignIn } = require('../controllers/login.controllers');
 const { registerRecipe, showRecipes, 
   showRecipe, showEdited, deleted } = require('../controllers/recipes.controllers');
-const { validateToken } = require('../validations/validations');
+const { validateToken, validateAdmin } = require('../validations/validations');
 
 const router = express.Router();
 const RECIPES_ID = '/recipes/:id';
@@ -21,5 +21,7 @@ router.put(RECIPES_ID, validateToken, showEdited);
 
 router.delete(RECIPES_ID, validateToken, deleted);
 router.delete(RECIPES_ID, deleted);
+
+router.post('/users/admin', validateToken, validateAdmin, adminCreate);
 
 module.exports = router;

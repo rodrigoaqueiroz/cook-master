@@ -6,6 +6,7 @@ const errors = {
   IncorrectJWT: 'jwt malformed',
   notFoundRecipe: 'recipe not found',
   missingAuthToken: 'missing auth token',
+  forbidden: 'Only admins can register new admins',
 };
 
 module.exports = {

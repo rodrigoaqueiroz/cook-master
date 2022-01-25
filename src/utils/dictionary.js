@@ -5,6 +5,7 @@ const codeConflict = 409;
 const codeUnauthorized = 401;
 const codeNotFound = 404;
 const codeNoContent = 204;
+const codeForbidden = 403;
 
 // referência: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
 
@@ -16,4 +17,5 @@ module.exports = {
   codeUnauthorized,
   codeNotFound,
   codeNoContent,
+  codeForbidden,
 };

@@ -1,6 +1,6 @@
 const { errors } = require('./errors');
 const { codeBadRequest, codeConflict, 
-  codeUnauthorized, codeNotFound, codeNoContent } = require('./dictionary');
+  codeUnauthorized, codeNotFound, codeNoContent, codeForbidden } = require('./dictionary');
 
 const msgBadRequest = { status: codeBadRequest, message: errors.errorEntries };
 const msgConflict = { status: codeConflict, message: errors.errorSameEmail };
@@ -10,6 +10,7 @@ const msgBadJWT = { status: codeUnauthorized, message: errors.IncorrectJWT };
 const msgNotFoundRecipe = { status: codeNotFound, message: errors.notFoundRecipe };
 const msgMissingToken = { status: codeUnauthorized, message: errors.missingAuthToken };
 const msgNoContent = { status: codeNoContent, message: '' };
+const msgForbidden = { status: codeForbidden, message: errors.forbidden };
 
 module.exports = {
   msgBadRequest,
@@ -20,4 +21,5 @@ module.exports = {
   msgNotFoundRecipe,
   msgMissingToken,
   msgNoContent,
+  msgForbidden,
 };

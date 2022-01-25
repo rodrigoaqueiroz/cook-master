@@ -2,7 +2,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { 
   msgBadRequest, msgConflict, 
-  msgUnauthorizedNull, msgUnauthorizedIncorrect, msgMissingToken,
+  msgUnauthorizedNull, msgUnauthorizedIncorrect, msgMissingToken, msgForbidden,
   } = require('../utils/messages');
 const { getEmail } = require('../models/users.models');
 const { secret } = require('../services/authService');
@@ -94,6 +94,21 @@ const validateRecipe = (name, ingredients, preparation) => {
   return { name, ingredients, preparation };
 };
 
+const validateAdmin = async (req, res, next) => {
+  const token = req.headers.authorization;
+  
+  try {
+    if (!token) throw msgMissingToken;
+    const decoded = jwt.verify(token, secret);
+    console.log(`AQUI TÁ O DECODED DATA!!! ${Object.keys(decoded.data)}`);
+    if (decoded.data.role !== 'admin') throw msgForbidden;
+    next();
+  } catch (err) {
+    console.log(`ADMIN VALIDATION ERROR: ${err.message}`);
+    return next({ status: 403, message: err.message });
+  }
+};
+
 module.exports = { 
   validateName,
   validateEmail,
@@ -102,4 +117,5 @@ module.exports = {
   validateNull,
   validateToken,
   validateRecipe,
+  validateAdmin,
 };
