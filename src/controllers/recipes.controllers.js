@@ -1,7 +1,6 @@
 const { createRecipes, getAllRecipes, 
-      getRecipe, editRecipeById } = require('../services/recipes.service');
+      getRecipe, editRecipeById, deleteRecipeById } = require('../services/recipes.service');
 
-// const codeCreated = 201;
 const registerRecipe = async (req, res, next) => {
   const { user } = req;
   const { name, ingredients, preparation } = req.body;
@@ -50,9 +49,21 @@ const showEdited = async (req, res, next) => {
   }
 };
 
+const deleted = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const removedRecipe = await deleteRecipeById(id);
+    return res.status(removedRecipe.status).json(removedRecipe.message);
+  } catch (error) {
+    console.log(`DELETERECIPES -> ${error.message}`);
+    return next(error);
+  }
+};
+
 module.exports = { 
   registerRecipe,
   showRecipes,
   showRecipe,
   showEdited,
+  deleted,
 };

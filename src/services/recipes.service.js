@@ -1,7 +1,7 @@
 const { validateRecipe } = require('../validations/validations');
-const { create, getRecipes, getById, editById } = require('../models/recipes.models');
-const { msgNotFoundRecipe } = require('../utils/messages');
-const { codeCreated, codeOK } = require('../utils/dictionary');
+const { create, getRecipes, getById, editById, deleteRecipe } = require('../models/recipes.models');
+const { msgNotFoundRecipe, msgNoContent } = require('../utils/messages');
+const { codeCreated, codeOK, codeNoContent } = require('../utils/dictionary');
 
 const createRecipes = async (name, ingredients, preparation, user) => {
   const verifyNull = await validateRecipe(name, ingredients, preparation, user);
@@ -27,9 +27,16 @@ const editRecipeById = async (id, obj, user) => {
   return { status: codeOK, message: edited };
 };
 
+const deleteRecipeById = async (id) => {
+  const deleted = await deleteRecipe(id);
+  if (!deleted) throw msgNotFoundRecipe;
+  return { status: codeNoContent, message: msgNoContent.message };
+};
+
 module.exports = {
   createRecipes,
   getAllRecipes,
   getRecipe,
   editRecipeById,
+  deleteRecipeById,
 };
