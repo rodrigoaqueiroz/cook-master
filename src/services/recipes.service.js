@@ -1,11 +1,11 @@
 const { validateRecipe } = require('../validations/validations');
-const { create, getRecipes, getById, editById, deleteRecipe } = require('../models/recipes.models');
+const { create, getRecipes, getById, editById, 
+  deleteRecipe, uploadImage } = require('../models/recipes.models');
 const { msgNotFoundRecipe, msgNoContent } = require('../utils/messages');
 const { codeCreated, codeOK, codeNoContent } = require('../utils/dictionary');
 
 const createRecipes = async (name, ingredients, preparation, user) => {
   const verifyNull = await validateRecipe(name, ingredients, preparation, user);
-  // console.log(user);
   const recipeId = await create(verifyNull, user);
   const createdRecipe = { recipe: { ...recipeId } };
   return { status: codeCreated, message: createdRecipe };
@@ -33,10 +33,16 @@ const deleteRecipeById = async (id) => {
   return { status: codeNoContent, message: msgNoContent.message };
 };
 
+const putImage = async (id) => {
+  const image = await uploadImage(id);
+  return { status: codeOK, message: image };
+};
+
 module.exports = {
   createRecipes,
   getAllRecipes,
   getRecipe,
   editRecipeById,
   deleteRecipeById,
+  putImage,
 };

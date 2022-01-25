@@ -1,5 +1,12 @@
-const { createRecipes, getAllRecipes, 
-      getRecipe, editRecipeById, deleteRecipeById } = require('../services/recipes.service');
+const {
+  createRecipes,
+  getAllRecipes,
+  getRecipe,
+  editRecipeById,
+  deleteRecipeById,
+  putImage,
+} = require('../services/recipes.service');
+const upload = require('../middlewares/uploadImage');
 
 const registerRecipe = async (req, res, next) => {
   const { user } = req;
@@ -60,10 +67,27 @@ const deleted = async (req, res, next) => {
   }
 };
 
+// middleware upload.single('file') e controller do update da imagem
+
+const imageUpdated = [
+  upload.single('image'), 
+  async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const updatedImage = await putImage(id);
+      return res.status(updatedImage.status).json(updatedImage.message);
+    } catch (error) {
+      console.log(`UPLOADIMAGE -> ${error.message}`);
+      return next(error);
+    }
+  },
+];
+
 module.exports = { 
   registerRecipe,
   showRecipes,
   showRecipe,
   showEdited,
   deleted,
+  imageUpdated,
 };

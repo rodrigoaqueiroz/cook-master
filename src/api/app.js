@@ -19,6 +19,7 @@ app.get('/recipes/:id', router);
 app.put('/recipes/:id', router);
 app.delete('/recipes/:id', router);
 app.post('/users/admin', router);
+app.put('/recipes/:id/image', router);
 
 app.use(errorHandle);
 // app.use((err, _request, response, _next) => {

@@ -66,9 +66,7 @@ const validateToken = async (req, res, next) => {
     if (!token) throw msgMissingToken;
     const decoded = jwt.verify(token, secret);
     // console.log(`SEGUE AQUI O DECODED: ${decoded.data.email}`);
-    const user = await getEmail(decoded.data.email);
-    console.log(user);
-    
+    const user = await getEmail(decoded.data.email);    
     if (!user) res.status(401).json({ error: 'Erro ao procurar usuário do token.' });
     req.user = user;
     
