@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = require('../routes');
 const errorHandle = require('../middlewares/errorHandle');
 
@@ -21,10 +22,7 @@ app.delete('/recipes/:id', router);
 app.post('/users/admin', router);
 app.put('/recipes/:id/image', router);
 
+app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
 app.use(errorHandle);
-// app.use((err, _request, response, _next) => {
-//   if (err.status) return response.status(err.status).json({ message: err.message });
-//   return response.status(500).json({ message: err.message });
-// });
 
 module.exports = app;
